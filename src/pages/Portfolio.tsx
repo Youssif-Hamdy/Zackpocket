@@ -12,11 +12,10 @@ const whatsappHref = `https://wa.me/${WHATSAPP_INTL}?text=${encodeURIComponent(W
 
 /* ════════════════════════════════════════════════════════════════════════════
    صور المشروع الحقيقي
-   الأولوية: لو الصور داخل  src/example/  بيقراها الكود لوحده.
-   لو مش موجودة هناك، بيجيبها من public حسب PUBLIC_DIR والأسماء تحت.
+   الصور موجودة مباشرة في مجلد public/ في جذر المشروع
    ════════════════════════════════════════════════════════════════════════════ */
 
-const PUBLIC_DIR = '/example'; // لو الصور في جذر public مباشرة خليها ''
+const PUBLIC_DIR = ''; // الصور في جذر public مباشرة
 
 const publicFiles = [
   'Screenshot 2026-10-15 190631.png',
@@ -33,19 +32,12 @@ const exampleTitles: Record<string, string> = {
   // 'Screenshot 2026-10-15 190710': 'اسم الشاشة',
 };
 
-const exampleModules = import.meta.glob('./example/*.{png,jpg,jpeg,webp,PNG,JPG,JPEG,WEBP}', {
-  eager: true,
-  query: '?url',
-  import: 'default',
-}) as Record<string, string>;
+// الصور كلها في public/ — نستخدم الـ fallback مباشرة بدون glob
+const examples = publicFiles.map((f, i) => ({
+  src: `${PUBLIC_DIR}/${encodeURIComponent(f)}`,
+  title: exampleTitles[f.replace(/\.[^.]+$/, '')] ?? `شاشة ${i + 1} من النظام`,
+}));
 
-const rawExamples = Object.keys(exampleModules).length
-  ? Object.entries(exampleModules)
-      .sort(([a], [b]) => a.localeCompare(b, undefined, { numeric: true }))
-      .map(([path, src]) => ({ name: path.split('/').pop()!.replace(/\.[^.]+$/, ''), src }))
-  : publicFiles.map((f) => ({ name: f.replace(/\.[^.]+$/, ''), src: `${PUBLIC_DIR}/${encodeURIComponent(f)}` }));
-
-const examples = rawExamples.map((e, i) => ({ src: e.src, title: exampleTitles[e.name] ?? `شاشة ${i + 1} من النظام` }));
 
 /* ════════════════════════════════════════════════════════════════════════════
    أيقونات SVG (بدون إيموجي)
