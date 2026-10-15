@@ -1,0 +1,359 @@
+/* الخط لازم يكون أول سطر في الملف */
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap');
+@import "tailwindcss";
+
+/* ============================================
+   Theme tokens (Tailwind v4)
+   ============================================ */
+@theme {
+  --color-zp-green:        #1a7a4a;   /* أخضر علم السعودية */
+  --color-zp-green-dark:   #145e38;
+  --color-zp-green-light:  #22a05f;
+  --color-zp-teal:         #00c896;   /* لون التمييز من اللوجو */
+  --color-zp-dark:         #0d1f17;   /* أخضر غامق */
+
+  /* في Tailwind v4 الاسم الصحيح هو --font-sans (مش --font-family-sans) */
+  --font-sans: 'Cairo', 'Segoe UI', ui-sans-serif, system-ui, sans-serif;
+}
+
+/* ============================================
+   Base
+   ============================================ */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply font-sans antialiased text-gray-900 bg-gray-50;
+  }
+
+  ol, ul {
+    padding-inline-start: 1.5rem;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-zp-teal);
+    outline-offset: 3px;
+  }
+}
+
+/* ============================================
+   Utilities
+   ============================================ */
+@layer utilities {
+  .glass {
+    @apply bg-white/10 backdrop-blur-md;
+  }
+  .glass-strong {
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+}
+
+/* ─── Tall glass cards (examples) ───────────── */
+.glass-card {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.06));
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow:
+    0 20px 40px -12px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  transition: box-shadow 0.4s ease, border-color 0.4s ease;
+}
+.group\/card:hover .glass-card,
+.group\/card:focus-visible .glass-card {
+  border-color: rgba(0, 200, 150, 0.7);
+  box-shadow:
+    0 35px 70px -10px rgba(0, 200, 150, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+/* ─── Navbar ────────────────────────────────── */
+.navbar-blur {
+  background: rgba(13, 31, 23, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(26, 122, 74, 0.3);
+}
+
+.nav-link {
+  position: relative;
+  padding-block: 4px;
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  right: 0;
+  width: 0;
+  height: 2px;
+  background: var(--color-zp-teal);
+  border-radius: 9999px;
+  transition: width 0.3s ease;
+}
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* ─── Gradient mesh (CTA) ───────────────────── */
+.hero-bg {
+  background:
+    radial-gradient(ellipse 80% 60% at 70% 50%, rgba(0, 200, 150, 0.18) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 80% at 20% 80%, rgba(26, 122, 74, 0.25) 0%, transparent 60%),
+    linear-gradient(135deg, #0d1f17 0%, #1a3d28 40%, #0f2a1e 100%);
+}
+
+/* ─── Example cards (hover) ─────────────────── */
+.screenshot-card {
+  transition: transform 0.45s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.45s ease, border-color 0.3s ease;
+  transform-origin: center bottom;
+  cursor: zoom-in;
+}
+.screenshot-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  border-color: rgba(0, 200, 150, 0.6);
+  box-shadow: 0 30px 60px -12px rgba(26, 122, 74, 0.45);
+}
+.screenshot-card .card-overlay {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.screenshot-card:hover .card-overlay,
+.screenshot-card:focus-visible .card-overlay {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* على الموبايل مفيش hover، فنسيب الـ overlay ظاهر بشكل خفيف */
+@media (hover: none) {
+  .screenshot-card .card-overlay {
+    opacity: 1;
+    transform: none;
+    background: linear-gradient(to top, rgba(13, 31, 23, 0.55), transparent 50%);
+  }
+}
+
+/* ─── Reduced motion ────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .screenshot-card,
+  .screenshot-card:hover {
+    transition: none;
+    transform: none;
+  }
+}
+
+/* ─── Features: بقعة الضوء اللي بتتبع الماوس ─── */
+.feature-spot {
+  background: radial-gradient(420px circle at var(--sx, 50%) var(--sy, 50%), rgba(0, 200, 150, 0.2), transparent 65%);
+}
+
+/* ─── مخطط الربط: نقاط بتتحرك على الخط ─── */
+.flow-dot {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: #00c896;
+  box-shadow: 0 0 14px 4px rgba(0, 200, 150, 0.7);
+  opacity: 0;
+  top: 0;
+  left: -3.5px;
+  animation: flow-y 2.4s linear infinite;
+}
+@keyframes flow-y {
+  0%   { top: 0; opacity: 0; }
+  15%  { opacity: 1; }
+  85%  { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+@media (min-width: 768px) {
+  .flow-dot {
+    top: -3.5px;
+    left: auto;
+    inset-inline-start: 0;
+    animation-name: flow-x;
+  }
+}
+@keyframes flow-x {
+  0%   { inset-inline-start: 0; opacity: 0; }
+  15%  { opacity: 1; }
+  85%  { opacity: 1; }
+  100% { inset-inline-start: 100%; opacity: 0; }
+}
+
+/* ─── حلقة نبض حول عقدة النظام ─── */
+@keyframes pulse-ring {
+  0%   { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(1.7); opacity: 0; }
+}
+.pulse-ring::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  border: 2px solid #00c896;
+  animation: pulse-ring 2.2s ease-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flow-dot,
+  .pulse-ring::before {
+    animation: none;
+  }
+}
+
+/* ─── الموبايل: الصور تتحرك لوحدها لأن مفيش هوفر ─── */
+@keyframes card-pan {
+  from { object-position: 0% 0%; }
+  to   { object-position: 100% 0%; }
+}
+@media (hover: none) {
+  .card-pan {
+    animation: card-pan 6s ease-in-out infinite alternate;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .card-pan {
+    animation: none;
+  }
+}
+
+/* ════════════════════════════════════════════════
+   Scrollbar مخصص بألوان البراند
+   ════════════════════════════════════════════════ */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0d1f17;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #00c896 0%, #1a7a4a 100%);
+  border-radius: 9999px;
+  border: 2px solid #0d1f17;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #00e6ac 0%, #22a05f 100%);
+}
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #00c896 #0d1f17;
+}
+
+/* ════════════════════════════════════════════════
+   Preloader — شاشة التحميل عند أول فتح الصفحة
+   ════════════════════════════════════════════════ */
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0d1f17;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* الهالة الخضرا اللي بتنبض ورا اللوجو */
+.preloader-glow {
+  position: absolute;
+  width: 160px;
+  height: 160px;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgba(0,200,150,0.35) 0%, transparent 70%);
+  animation: pre-glow 1.6s ease-in-out infinite alternate;
+}
+@keyframes pre-glow {
+  from { transform: scale(0.8); opacity: 0.5; }
+  to   { transform: scale(1.4); opacity: 1; }
+}
+
+/* اللوجو نفسه */
+.preloader-logo {
+  position: relative;
+  z-index: 1;
+  animation: pre-logo-in 0.7s cubic-bezier(0.22,1,0.36,1) both;
+}
+@keyframes pre-logo-in {
+  from { opacity: 0; transform: scale(0.5) rotate(-12deg); }
+  to   { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+
+/* نص Zackpocket */
+.preloader-name {
+  position: relative;
+  z-index: 1;
+  color: #fff;
+  font-family: 'Cairo', sans-serif;
+  font-weight: 900;
+  font-size: 1.75rem;
+  letter-spacing: -0.02em;
+  animation: pre-name-in 0.7s 0.3s cubic-bezier(0.22,1,0.36,1) both;
+}
+@keyframes pre-name-in {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* شريط التحميل */
+.preloader-bar-wrap {
+  position: relative;
+  z-index: 1;
+  width: 160px;
+  height: 3px;
+  border-radius: 9999px;
+  background: rgba(255,255,255,0.1);
+  overflow: hidden;
+  animation: pre-name-in 0.7s 0.5s cubic-bezier(0.22,1,0.36,1) both;
+}
+.preloader-bar {
+  height: 100%;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #1a7a4a, #00c896);
+  animation: pre-bar 1.6s 0.5s cubic-bezier(0.4,0,0.2,1) forwards;
+}
+@keyframes pre-bar {
+  from { width: 0%; }
+  to   { width: 100%; }
+}
+
+/* fade-out للـ preloader بعد الانتهاء */
+.preloader-exit {
+  animation: pre-exit 0.55s cubic-bezier(0.4,0,1,1) forwards;
+}
+@keyframes pre-exit {
+  0%   { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.06); pointer-events: none; }
+}
+
+/* ════════════════════════════════════════════════
+   Mobile: تنسيق سكشن الكروت والمسارات
+   ════════════════════════════════════════════════ */
+@media (max-width: 1023px) {
+  /* الكروت تاخد العرض كامل بدون تداخل */
+  .card-deck-wrap {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 0.5rem;
+  }
+
+  /* المسار بيجي أسفل الكروت على الموبايل */
+  .examples-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+}
