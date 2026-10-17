@@ -262,7 +262,7 @@ const Navbar: React.FC = () => {
           ))}
         </ul>
 
-        <a href={whatsappHref} target="_blank" rel="noreferrer" className="hidden items-center gap-2 rounded-full bg-zp-teal px-5 py-2.5 text-sm font-bold text-zp-dark transition hover:bg-white lg:inline-flex">
+        <a href={whatsappHref} target="_blank" rel="noreferrer" className="hidden items-center gap-2 rounded-none bg-zp-teal px-5 py-2.5 text-sm font-bold text-zp-dark transition hover:bg-white lg:inline-flex">
           <WhatsAppIcon className="h-4 w-4" />
           واتساب
         </a>
@@ -292,7 +292,7 @@ const Navbar: React.FC = () => {
                 </li>
               ))}
               <li className="pt-3">
-                <a href={whatsappHref} target="_blank" rel="noreferrer" className="flex items-center justify-center gap-2 rounded-xl bg-zp-teal px-4 py-3 text-lg font-bold text-zp-dark">
+                <a href={whatsappHref} target="_blank" rel="noreferrer" className="flex items-center justify-center gap-2 rounded-none bg-zp-teal px-4 py-3 text-lg font-bold text-zp-dark">
                   <WhatsAppIcon />
                   تواصل عبر واتساب
                 </a>
@@ -327,30 +327,20 @@ const Hero: React.FC = () => (
     <div className="absolute inset-0 -z-10 bg-gradient-to-b from-zp-dark/80 via-zp-dark/65 to-zp-dark/90" />
     <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_70%_50%_at_50%_100%,rgba(26,122,74,0.45),transparent_70%)]" />
 
-    <div className="mx-auto w-full max-w-5xl px-5 pb-16 pt-32 text-center lg:px-8 lg:pt-36">
-      <motion.h1 className="text-4xl font-black leading-[1.3] text-white sm:text-5xl md:text-6xl" variants={heroItem} initial="hidden" animate="visible">
-        اربط مشروعك التجاري بهيئة الزكاة والضريبة
+    <div className="mx-auto w-full max-w-4xl px-5 pb-16 pt-32 text-center lg:px-8 lg:pt-36">
+      <motion.h1 className="text-3xl font-black leading-tight text-white sm:text-5xl md:text-6xl" variants={heroItem} initial="hidden" animate="visible">
+        ربط مشروعك بهيئة الزكاة
         <br className="hidden sm:block" /> من أول فاتورة
       </motion.h1>
-      <motion.p className="mx-auto mt-6 max-w-2xl text-base leading-9 text-white/85 md:text-xl" variants={heroItem} custom={1} initial="hidden" animate="visible">
-        نظام يستقبل مبيعاتك، يحسب الزكاة والضريبة، ويصدر الفاتورة الإلكترونية ويرسلها إلى ZATCA تلقائياً، لتتفرغ أنت لتنمية عملك.
+      <motion.p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-white/75 sm:text-lg sm:leading-8" variants={heroItem} custom={1} initial="hidden" animate="visible">
+        <span className="sm:hidden">حساب تلقائي للزكاة وإصدار فوري للفواتير لـ ZATCA.</span>
+        <span className="hidden sm:inline">حساب تلقائي للزكاة والضريبة، وإصدار الفواتير الإلكترونية وإرسالها لـ ZATCA بضغطة واحدة.</span>
       </motion.p>
-      <motion.div className="mt-10 flex flex-wrap items-center justify-center gap-3 sm:gap-4" variants={heroItem} custom={2} initial="hidden" animate="visible">
-        <a href="#examples" className="rounded-full bg-zp-teal px-7 py-3.5 font-bold text-zp-dark shadow-lg shadow-zp-teal/20 transition hover:-translate-y-0.5 hover:bg-white">
+      <motion.div className="mt-8 sm:mt-10 flex items-center justify-center" variants={heroItem} custom={2} initial="hidden" animate="visible">
+        <a href="#examples" className="rounded-none bg-zp-teal px-7 py-3 text-base sm:px-8 sm:py-4 font-bold text-zp-dark shadow-lg shadow-zp-teal/20 transition hover:-translate-y-0.5 hover:bg-white">
           شاهد النظام وهو يعمل
         </a>
-        <a href="#path" className="glass-strong rounded-full px-7 py-3.5 font-bold text-white transition hover:bg-white/20">
-          كيف تسجّل منشأتك في الهيئة
-        </a>
       </motion.div>
-      <motion.ul className="mt-12 flex list-none flex-wrap items-center justify-center gap-x-8 gap-y-3 !ps-0 text-sm font-semibold text-white/80" variants={heroItem} custom={3} initial="hidden" animate="visible">
-        {['حساب تلقائي للزكاة والضريبة', 'فواتير إلكترونية برمز QR', 'ربط مباشر مع منصة فاتورة'].map((x) => (
-          <li key={x} className="flex items-center gap-2">
-            <Icon name="check" className="h-4 w-4 text-zp-teal" />
-            {x}
-          </li>
-        ))}
-      </motion.ul>
     </div>
   </section>
 );
@@ -419,13 +409,7 @@ const FlowNode: React.FC<{ icon: keyof typeof iconPaths; title: string; caption:
     viewport={{ once: true }}
     transition={{ type: 'spring', stiffness: 160, damping: 16, delay }}
   >
-    <span
-      className={`relative flex h-20 w-20 items-center justify-center rounded-3xl border text-white backdrop-blur ${
-        highlight ? 'pulse-ring border-zp-teal bg-zp-green shadow-lg shadow-zp-teal/30' : 'border-white/20 bg-white/10'
-      }`}
-    >
-      <DrawIcon name={icon} className="h-9 w-9" delay={delay + 0.2} />
-    </span>
+    <DrawIcon name={icon} className={`h-12 w-12 transition-transform duration-500 ${highlight ? 'text-zp-teal' : 'text-white/80'}`} delay={delay + 0.2} />
     <p className="mt-4 text-lg font-extrabold text-white">{title}</p>
     <p className="mt-1 text-sm text-white/60">{caption}</p>
   </motion.div>
@@ -510,11 +494,11 @@ const FeatureCard: React.FC<{ f: FeatureItem; index: number }> = ({ f, index }) 
         <Icon name={f.icon} className="pointer-events-none absolute -bottom-8 -end-8 h-44 w-44 text-zp-green/[0.06] transition-transform duration-700 group-hover:rotate-6 group-hover:scale-110" />
 
         <div className="relative">
-          <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-zp-green text-white shadow-lg shadow-zp-green/30 transition-transform duration-500 group-hover:-rotate-6 group-hover:scale-110">
-            <DrawIcon name={f.icon} className="h-7 w-7" delay={0.3 + index * 0.1} />
-          </span>
-          <h3 className={`mt-5 font-extrabold text-zp-dark ${f.featured ? 'text-2xl md:text-3xl' : 'text-xl'}`}>{f.title}</h3>
-          <p className={`mt-2 leading-8 text-gray-600 ${f.featured ? 'max-w-xl text-base md:text-lg' : 'text-sm'}`}>{f.description}</p>
+          <div className={`flex items-center gap-3 ${f.featured ? 'gap-4' : 'gap-3'}`}>
+            <DrawIcon name={f.icon} className={`shrink-0 text-zp-green transition-transform duration-500 group-hover:scale-110 ${f.featured ? 'h-8 w-8' : 'h-6 w-6'}`} delay={0.3 + index * 0.1} />
+            <h3 className={`font-extrabold text-zp-dark ${f.featured ? 'text-2xl md:text-3xl' : 'text-xl'}`}>{f.title}</h3>
+          </div>
+          <p className={`mt-3 leading-8 text-gray-600 ${f.featured ? 'max-w-xl text-base md:text-lg' : 'text-sm'}`}>{f.description}</p>
 
           {f.wide && (
             <div className="mt-6">
@@ -810,15 +794,15 @@ const StepModal: React.FC<{ index: number; onChange: (i: number | null) => void 
 
           {/* التنقل */}
           <div className="flex items-center justify-between gap-3 border-t border-gray-100 bg-gray-50 px-6 pt-4 pb-[max(1rem,env(safe-area-inset-bottom))] sm:px-8">
-            <button type="button" disabled={prev === null} onClick={() => prev !== null && onChange(prev)} className="rounded-full border border-gray-300 px-5 py-2 text-sm font-bold text-gray-700 transition hover:bg-white disabled:opacity-30">
+            <button type="button" disabled={prev === null} onClick={() => prev !== null && onChange(prev)} className="rounded-none border border-gray-300 px-5 py-2 text-sm font-bold text-gray-700 transition hover:bg-white disabled:opacity-30">
               السابق
             </button>
             {next !== null ? (
-              <button type="button" onClick={() => onChange(next)} className="rounded-full bg-zp-green px-6 py-2 text-sm font-bold text-white transition hover:bg-zp-green-dark">
+              <button type="button" onClick={() => onChange(next)} className="rounded-none bg-zp-green px-6 py-2 text-sm font-bold text-white transition hover:bg-zp-green-dark">
                 الخطوة التالية
               </button>
             ) : (
-              <button type="button" onClick={() => onChange(null)} className="rounded-full bg-zp-green px-6 py-2 text-sm font-bold text-white transition hover:bg-zp-green-dark">
+              <button type="button" onClick={() => onChange(null)} className="rounded-none bg-zp-green px-6 py-2 text-sm font-bold text-white transition hover:bg-zp-green-dark">
                 إنهاء
               </button>
             )}
@@ -850,9 +834,10 @@ const Project: React.FC = () => {
       <div className="relative mx-auto flex max-w-[88rem] flex-col gap-8 lg:grid lg:grid-cols-[5fr_6fr] lg:gap-x-12 lg:gap-y-0">
         {/* المقدمة — أعلى الموبايل | يمين السطح */}
         <motion.div className="lg:col-start-1 lg:row-start-1 lg:self-end" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-60px' }} transition={{ duration: 0.7, ease }}>
-          <h2 className="text-3xl font-extrabold leading-snug text-white md:text-4xl">من المشروع الحقيقي</h2>
-          <p className="mt-4 max-w-lg leading-8 text-white/70">
-            شاشات فعلية من النظام أثناء العمل. مرّر المؤشر على أي بطاقة لاستعراض الشاشة، واضغط عليها لتكبيرها.
+          <h2 className="text-2xl font-extrabold leading-snug text-white sm:text-3xl md:text-4xl">من المشروع الحقيقي</h2>
+          <p className="mt-2 max-w-lg leading-7 text-white/70 sm:mt-4 sm:leading-8">
+            <span className="sm:hidden">شاشات فعلية من النظام أثناء العمل. اضغط لتكبير أي شاشة.</span>
+            <span className="hidden sm:inline">شاشات فعلية من النظام أثناء العمل. مرّر المؤشر على أي بطاقة لاستعراض الشاشة، واضغط عليها لتكبيرها.</span>
           </p>
         </motion.div>
 
@@ -863,10 +848,13 @@ const Project: React.FC = () => {
 
         {/* المسار — أسفل على الموبايل | يمين تحت المقدمة على السطح */}
         <motion.div className="lg:col-start-1 lg:row-start-2 lg:self-start lg:pt-10" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: '-60px' }} transition={{ duration: 0.7, ease }}>
-          <h3 id="path" className="scroll-mt-28 text-xl font-bold text-white md:text-2xl">
+          <h3 id="path" className="scroll-mt-28 text-lg font-bold text-white sm:text-xl md:text-2xl">
             كيف تسجّل منشأتك في هيئة الزكاة والضريبة
           </h3>
-          <p className="mt-2 text-sm text-white/60">ست خطوات من التسجيل إلى أول فاتورة. اضغط على أي خطوة لعرض تفاصيلها.</p>
+          <p className="mt-1 text-xs text-white/60 sm:mt-2 sm:text-sm">
+            <span className="sm:hidden">6 خطوات من التسجيل لأول فاتورة.</span>
+            <span className="hidden sm:inline">ست خطوات من التسجيل إلى أول فاتورة. اضغط على أي خطوة لعرض تفاصيلها.</span>
+          </p>
           <PathList onOpen={setStepIndex} />
         </motion.div>
       </div>
@@ -937,19 +925,20 @@ const How: React.FC = () => (
 const Cta: React.FC = () => (
   <section id="contact" className="hero-bg scroll-mt-20 px-5 py-20 text-center text-white md:py-24">
     <div className="mx-auto max-w-3xl">
-      <h2 className="text-3xl font-extrabold leading-snug md:text-4xl">هل تريد هذا النظام لمشروعك؟</h2>
-      <p className="mx-auto mt-4 max-w-xl text-lg leading-8 text-white/75">
-        تواصل معي عبر واتساب وسأرسل لك عرضاً توضيحياً (ديمو) للمشروع، ثم نحدد معاً كيف نربط نشاطك التجاري بهيئة الزكاة والضريبة.
+      <h2 className="text-2xl font-extrabold leading-snug sm:text-3xl md:text-4xl">هل تريد هذا النظام لمشروعك؟</h2>
+      <p className="mx-auto mt-3 max-w-xl text-base leading-7 text-white/75 sm:mt-4 sm:text-lg sm:leading-8">
+        <span className="sm:hidden">تواصل معي عبر واتساب للحصول على عرض توضيحي (ديمو) وبدء الربط.</span>
+        <span className="hidden sm:inline">تواصل معي عبر واتساب وسأرسل لك عرضاً توضيحياً (ديمو) للمشروع، ثم نحدد معاً كيف نربط نشاطك التجاري بهيئة الزكاة والضريبة.</span>
       </p>
       <a
         href={whatsappHref}
         target="_blank"
         rel="noreferrer"
-        className="mt-8 inline-flex w-full max-w-sm items-center justify-center gap-3 rounded-full bg-[#25D366] px-6 py-4 font-bold text-zp-dark shadow-lg shadow-black/20 transition hover:-translate-y-0.5 hover:bg-white sm:w-auto sm:max-w-none sm:px-8 sm:text-lg"
+        className="mt-8 inline-flex w-full max-w-sm items-center justify-center gap-3 rounded-none bg-[#25D366] px-6 py-4 font-bold text-zp-dark shadow-lg shadow-black/20 transition hover:-translate-y-0.5 hover:bg-white sm:w-auto sm:max-w-none sm:px-8 sm:text-lg"
       >
         <WhatsAppIcon className="h-7 w-7 shrink-0 sm:h-6 sm:w-6" />
         <span className="flex flex-col items-start leading-tight sm:flex-row sm:items-center sm:gap-3">
-          <span>أرسل لي على واتساب</span>
+          <span>تواصل عبر واتساب</span>
           <span dir="ltr" className="text-sm font-extrabold sm:text-lg">{WHATSAPP_DISPLAY}</span>
         </span>
       </a>
